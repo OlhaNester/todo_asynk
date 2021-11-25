@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import todosActions from "../redux/todos/todos_actions";
+import * as todosActions from "../redux/todos/todos_actions";
 
 const Filter = ({ value, onChange }) => (
   <label>

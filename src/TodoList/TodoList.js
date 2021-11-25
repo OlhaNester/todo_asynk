@@ -3,7 +3,7 @@ import "./TodoList.js";
 import "./TodoList.css";
 import classNames from "classnames";
 import { connect } from "react-redux";
-import todosActions from "../redux/todos/todos_actions";
+import * as todosActions from "../redux/todos/todos_actions";
 
 const TodoList = ({ todos, onDeleteTodo, onToggleCompleted }) => (
   <ul className="TodoList">

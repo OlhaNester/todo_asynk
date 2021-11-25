@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { createReducer } from "@reduxjs/toolkit";
 //import types from "./todos_types";
-import actions from "./todos_actions";
+import {addTodoRequest, addTodoSuccess, addTodoError, deleteTodo, filteredTodo, toggleCompleted } from "./todos_actions";
 
 // const items = (state = [], { type, payload }) => {
 //   switch (type) {
@@ -17,10 +17,10 @@ import actions from "./todos_actions";
 // };
 
 const items = createReducer([], {
-  [actions.addTodo]: (state, action) => [...state, action.payload],
-  [actions.deleteTodo]: (state, action) =>
+  [addTodoSuccess] : (state, action) => [...state, action.payload],
+  [deleteTodo]: (state, action) =>
     state.filter(({ id }) => id !== action.payload),
-  [actions.toggleCompleted]: (state, action) =>
+  [toggleCompleted]: (state, action) => 
     state.map((todo) =>
       todo.id === action.payload
         ? { ...todo, completed: !todo.completed }
@@ -28,20 +28,18 @@ const items = createReducer([], {
     ),
 });
 
-// const filter = (state = "", { type, payload }) => {
-//   switch (type) {
-//     case 'todos/filtered':
-//       return payload;
-
-//     default:
-//       return state;
-//   }
-// };
+const loading = createReducer(false, {
+  [addTodoRequest]: () => true,
+  [addTodoSuccess]: () => false,
+  [addTodoError]: ()=> false,
+  
+});
 const filter = createReducer("", {
-  [actions.filteredTodo]: (state, action) => action.payload,
+  [filteredTodo]: (state, action) => action.payload,
 });
 
 export default combineReducers({
   items,
   filter,
+  loading,
 });
