@@ -3,7 +3,8 @@ import "./TodoList.js";
 import "./TodoList.css";
 import classNames from "classnames";
 import { connect } from "react-redux";
-import * as todosActions from "../redux/todos/todos_actions";
+//import * as todosActions from "../redux/todos/todos_actions";
+import todosOperation from "../redux/todos/todos-operation.js";
 
 const TodoList = ({ todos, onDeleteTodo, onToggleCompleted }) => (
   <ul className="TodoList">
@@ -18,7 +19,7 @@ const TodoList = ({ todos, onDeleteTodo, onToggleCompleted }) => (
           type="checkbox"
           className="TodoList_checkbox"
           checked={completed}
-          onChange={() => onToggleCompleted(id)}
+          onChange={() => onToggleCompleted({id, completed: !completed})}
         />
 
         <p className="TodoList_text">{text}</p>
@@ -47,8 +48,8 @@ const mapStateToProps = ({ todos: { items, filter } }) => ({
   todos: getVisibleTodos(items, filter),
 });
 const mapDispatchToProps = {
-  onToggleCompleted: todosActions.toggleCompleted,
-  onDeleteTodo: todosActions.deleteTodo,
+  onToggleCompleted: todosOperation.toggleCompleted,
+  onDeleteTodo: todosOperation.deleteTodo,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
