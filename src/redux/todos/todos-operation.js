@@ -1,11 +1,22 @@
 import axios from 'axios';
-import {
+import {fetchTodosRequest, fetchTodosError, fetchTodosSuccess,
   addTodoRequest, addTodoError, addTodoSuccess,
   deleteTodoRequest, deleteTodoError, deleteTodoSuccess,
   toggleCompletedRequest, toggleCompletedError, toggleCompletedSuccess
-} from './todos_actions'
+} from './todos_actions';
+
+
 
 axios.defaults.baseURL = 'http://localhost:4040';
+
+const fetchTodos = ()=> dispatch => {
+
+  dispatch(fetchTodosRequest());
+
+  axios.get(`http://localhost:4040/todos`)
+    .then(({ data }) => dispatch(fetchTodosSuccess(data)))
+    .catch(error => dispatch(fetchTodosError(error)));
+}
 
 const addTodo = (text) => dispatch => {
   const todo = {
@@ -28,13 +39,15 @@ const deleteTodo = id => dispatch => {
     .catch(error => dispatch(deleteTodoError(error)));
 };
 
-const toggleCompleted = ({ id, complited }) => dispatch => {
-  const update = {complited};
+const toggleCompleted = ({ id, completed }) => dispatch => {
+  const update = {completed};
   dispatch(toggleCompletedRequest());
   
-  axios.patch(`http://localhost:4040/todos/${id}`, update).then(({ data }) => data);
+  axios.patch(`http://localhost:4040/todos/${id}`, update)
+    .then(({ data }) => dispatch(toggleCompletedSuccess(data)))
+    . catch(error=> dispatch(toggleCompletedError(error)));
 }
 
 export default {
-    addTodo, deleteTodo, toggleCompleted,
+    fetchTodos, addTodo, deleteTodo, toggleCompleted,
 };

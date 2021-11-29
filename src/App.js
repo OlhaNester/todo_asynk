@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import todosOperation from './redux/todos/todos-operation';
 
 import Filter from "./TodoEditor/Filter";
 // import axios from 'axios';
@@ -29,6 +31,10 @@ class App extends Component {
   state = {
     showModal: false,
   };
+
+  componentDidMount() {
+    this.props.fetchTodos();
+  }
   // componentDidMount() {
   //   // axios.get('http://localhost:4040/todos')
   //   //   .then(response => {
@@ -174,5 +180,11 @@ class App extends Component {
     );
   }
 }
+ 
 
-export default App;
+const mapDispatchToProps = {
+ fetchTodos: todosOperation.fetchTodos, 
+}
+
+export default connect(null, mapDispatchToProps)(App);
+
