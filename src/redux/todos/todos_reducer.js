@@ -22,7 +22,7 @@ import {
 // };
 
 const items = createReducer([], {
-  [fetchTodosRequest]: (state, {payload})=> payload,
+  [fetchTodosSuccess]: (state, {payload})=> payload,
   [addTodoSuccess] : (state, {payload}) => [...state, payload],
   [deleteTodoSuccess]: (state, {payload}) =>
     state.filter(({ id }) => id !== payload),

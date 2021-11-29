@@ -130,6 +130,7 @@ class App extends Component {
     return (
       <div className="App">
         {/* <Counter /> */}
+        {this.props.isLoadingTodos && <h1>Загрузка...</h1>}
         <Filter />
         <button type="button" onClick={this.toggleModal}>
           Открыть модалку
@@ -180,11 +181,13 @@ class App extends Component {
     );
   }
 }
- 
+const mapStateToProps = state => ({
+  isLoadingTodos: state.todos.loading,
+})
 
 const mapDispatchToProps = {
  fetchTodos: todosOperation.fetchTodos, 
 }
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
