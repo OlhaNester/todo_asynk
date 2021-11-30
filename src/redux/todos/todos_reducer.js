@@ -52,9 +52,11 @@ const loading = createReducer(false, {
 const filter = createReducer("", {
   [filteredTodo]: (state, action) => action.payload,
 });
+const error = createReducer(null, {});
 
 export default combineReducers({
   items,
   filter,
   loading,
+  error,
 });

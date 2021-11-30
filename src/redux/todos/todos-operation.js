@@ -9,14 +9,27 @@ import {fetchTodosRequest, fetchTodosError, fetchTodosSuccess,
 
 axios.defaults.baseURL = 'http://localhost:4040';
 
-const fetchTodos = ()=> dispatch => {
+// const fetchTodos = ()=> dispatch => {
+
+//   dispatch(fetchTodosRequest());
+
+//   axios.get(`http://localhost:4040/todos`)
+//     .then(({ data }) => dispatch(fetchTodosSuccess(data)))
+//     .catch(error => dispatch(fetchTodosError(error)));
+// } Переписываем как асинхронную функцию:
+
+const fetchTodos = () => async dispatch => {
 
   dispatch(fetchTodosRequest());
 
-  axios.get(`http://localhost:4040/todos`)
-    .then(({ data }) => dispatch(fetchTodosSuccess(data)))
-    .catch(error => dispatch(fetchTodosError(error)));
-}
+  try {
+    const { data } = await axios.get(`http://localhost:4040/todos`);
+    dispatch(fetchTodosSuccess(data));
+  } catch (error) {
+    dispatch(fetchTodosError(error));
+  }
+};
+
 
 const addTodo = (text) => dispatch => {
   const todo = {
