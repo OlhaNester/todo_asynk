@@ -8,17 +8,17 @@
     {
       "id": "id-2",
       "text": "Разобраться с React Router",
-      "completed": false
+      "completed": true
     },
     {
       "id": "id-3",
       "text": "Привыкнуть к Redux",
-      "completed": false
+      "completed": true
     },
     {
       "id": "id-4",
       "text": "Попробовать React Hooks",
-      "completed": false
+      "completed": true
     }
   ]
 }
